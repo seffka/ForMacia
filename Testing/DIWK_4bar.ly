@@ -4,10 +4,10 @@
 {% macro size() -%}
      \override NoteHead.font-size = #%{next_size() %}
 {%- endmacro %}
-{% macro eps(scale, first_bar, last_bar, w) -%}
+{% macro eps(scale, first_bar, last_bar) -%}
 _\markup {
   \general-align #Y #DOWN {
-    \epsfile #X #%{scale%} #"%{ eps_waveform(first_bar, last_bar, w=w*5, h=0.5, right_border_shift=0) %}"
+    \epsfile #X #%{scale%} #"%{ eps_waveform(first_bar, last_bar, right_border_shift=0) %}"
   }
 }
 {%- endmacro %}
@@ -19,9 +19,8 @@ _\markup {
 
 #(set-global-staff-size 18.581589107904897)
 \paper {
-    
-    paper-width = 50\cm
-    paper-height = 60\cm
+    paper-width = 22\cm
+    paper-height = 6\cm
     top-margin = 1.5\cm
     bottom-margin = 1.5\cm
     left-margin = 1.5\cm
@@ -41,11 +40,11 @@ _\markup {
         autoBeaming = ##f
         }
     }
-PartPOneVoiceOne =  \relative e {
-    \clef "treble" \numericTimeSignature\time 4/4 \key  \major
-    \transposition c \tempo 4=108
-    | % 1  %{eps(10,0, 4, 1)%}
-      %{color()%} %{size()%} f' 4 
+PartPOneVoiceOne = \transpose c d {
+    \clef percussion \numericTimeSignature\time 4/4
+    \tempo 4=108
+    | % 1
+      %{color()%} %{size()%} f 4%{eps(100,0, 4)%}
       \stemUp %{color()%} %{size()%} < f c' >4 
       \stemUp %{color()%} %{size()%} f4 
       \stemUp %{color()%} %{size()%} < f c' >4 
